@@ -4,8 +4,14 @@ import { LoginInput } from "../components";
 import { FaEnvelope, FaLock, FcGoogle } from "../assets/icons";
 import { motion } from "framer-motion";
 import { buttonClick } from "../animations";
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import {
+  getAuth,
+  signInWithPopup,
+  GoogleAuthProvider,
+  createUserWithEmailAndPassword,
+} from "firebase/auth";
 import { app } from "../config/firebase.config";
+import { validateUserJWTToken } from "../api";
 
 const Login = () => {
   const [userEmail, setUserEmail] = useState("");
@@ -19,11 +25,37 @@ const Login = () => {
       firebaseAuth.onAuthStateChanged((cred) => {
         if (cred) {
           cred.getIdToken().then((token) => {
-            console.log(token);
+            validateUserJWTToken(token).then((data) => {
+              console.log(data);
+            });
           });
         }
       });
     });
+  };
+  const signUpWithEmailPass = async () => {
+    if (userEmail === "" || password === "" || confirm_password === "") {
+    } else {
+      if (password === confirm_password) {
+        await createUserWithEmailAndPassword(
+          firebaseAuth,
+          userEmail,
+          password
+        ).then((userCred) => {
+          firebaseAuth.onAuthStateChanged((cred) => {
+            if (cred) {
+              cred.getIdToken().then((token) => {
+                validateUserJWTToken(token).then((data) => {
+                  console.log(data);
+                });
+              });
+            }
+          });
+        });
+        console.log("Equal");
+      } else {
+      }
+    }
   };
   return (
     <div className="w-screen h-screen relative overflow-hidden flex">
@@ -103,6 +135,7 @@ const Login = () => {
             <motion.button
               {...buttonClick}
               className="w-full px-4 py-2 rounded-md bg-red-400 cursor-pointer text-white text-xl capitalize hover:bg-red-500 transition-all duration-150"
+              onClick={signUpWithEmailPass}
             >
               Sign-Up
             </motion.button>
