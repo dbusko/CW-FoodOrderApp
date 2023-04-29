@@ -15,6 +15,7 @@ import { alertDanger, alertNULL } from "../context/actions/alertActions";
 import { alertSuccess } from "../context/actions/alertActions";
 import { motion } from "framer-motion";
 import { buttonClick } from "../animations";
+import { addNewProduct } from "../api";
 
 const DBNewItem = () => {
   const [itemName, setItemName] = useState("");
@@ -73,7 +74,17 @@ const DBNewItem = () => {
       product_price: price,
       imageURL: imageDownloadURL,
     };
-    console.log(data);
+    addNewProduct(data).then((res) => {
+      console.log(res);
+      dispatch(alertSuccess("New Item added"));
+      setTimeout(() => {
+        dispatch(alertNULL());
+      }, 3000);
+      setImageDownloadURL(null);
+      setItemName("");
+      setPrice("");
+      setCategory(null);
+    });
   };
   return (
     <div className="flex items-center justify-center flex-col pt-6 px-24 w-full">
@@ -92,7 +103,7 @@ const DBNewItem = () => {
                 onClick={() => setCategory(data.category)}
                 className={`px-4 py-3 rounded-md text-xl text-textColor font-semibold cursor-pointer hover:shadow-md border border-gray-200 backdrop-blur-md ${
                   data.category === category
-                    ? "bg-red-400 text-[#f5f3f3]" //text-primary
+                    ? "bg-red-400 text-white" //text-primary
                     : "bg-transparent"
                 }`}
               >
