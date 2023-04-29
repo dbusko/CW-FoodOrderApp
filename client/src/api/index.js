@@ -20,3 +20,12 @@ export const addNewProduct = async (data) => {
     return null;
   }
 };
+
+export const getAllProducts = async () => {
+  try {
+    const res = await axios.get(`${baseURL}/api/products/all`);
+    return res.data.data;
+  } catch (err) {
+    return null;
+  }
+};
