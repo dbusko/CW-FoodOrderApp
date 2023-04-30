@@ -3,12 +3,13 @@ import { Route, Routes } from "react-router-dom";
 import { Dashboard, Login, Main } from "./containers";
 import { getAuth } from "firebase/auth";
 import { app } from "./config/firebase.config";
-import { validateUserJWTToken } from "./api";
+import { getAllCartItems, validateUserJWTToken } from "./api";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserDetails } from "./context/actions/userActions";
 import { motion } from "framer-motion";
 import { fadeInOut } from "./animations";
 import { Alert, MainLoader } from "./components";
+import { setCartItems } from "./context/actions/cartAction";
 
 const App = () => {
   const firebaseAuth = getAuth(app);
@@ -21,6 +22,12 @@ const App = () => {
       if (cred) {
         cred.getIdToken().then((token) => {
           validateUserJWTToken(token).then((data) => {
+            if (data) {
+              getAllCartItems(data.user_id).then((items) => {
+                console.log(items);
+                dispatch(setCartItems(items));
+              });
+            }
             dispatch(setUserDetails(data));
           });
         });

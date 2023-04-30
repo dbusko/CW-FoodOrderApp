@@ -5,6 +5,7 @@ import { IoBasket } from "../assets/icons";
 import { addNewItemToCart, getAllCartItems } from "../api";
 import { useDispatch, useSelector } from "react-redux";
 import { alertNULL, alertSuccess } from "../context/actions/alertActions";
+import { setCartItems } from "../context/actions/cartAction";
 
 const SliderCard = ({ data, index }) => {
   const user = useSelector((state) => state.user);
@@ -13,8 +14,8 @@ const SliderCard = ({ data, index }) => {
     dispatch(alertSuccess("Added to cart"));
     addNewItemToCart(user?.user_id, data).then((res) => {
       getAllCartItems(user?.user_id).then((items) => {
-        console.log(items);
-        //dispatch(setCartItems(items));
+        
+        dispatch(setCartItems(items));
       });
       setInterval(() => {
         dispatch(alertNULL());
