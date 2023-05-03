@@ -19,3 +19,4 @@ export { default as SliderCard } from "./SliderCard";
 export { default as Filter } from "./Filter";
 export { default as Cart } from "./Cart";
 export { default as SuccessPayments } from "./SuccessPayments";
+export { default as OrdersInfo } from "./OrdersInfo";
