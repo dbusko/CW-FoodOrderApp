@@ -3,6 +3,7 @@ const admin = require("firebase-admin");
 const db = admin.firestore();
 db.settings({ ignoreUndefinedProperties: true });
 const stripe = require("stripe")(process.env.STRIPE_KEY);
+const express = require("express");
 
 router.post("/create", async (req, res) => {
   try {
@@ -212,5 +213,37 @@ router.post("/create-checkout-session", async (req, res) => {
 
   res.send({ url: session.url });
 });
+let endpointSecret;
+// endpointSecret = process.env.WEBHOOK_SECRET;
+router.post(
+  "/webhook",
+  express.raw({ type: "application/json" }),
+  (req, res) => {
+    const sig = req.headers["stripe-signature"];
+    let eventType;
+    let data;
+    if (endpointSecret) {
+      let event;
+      try {
+        event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
+      } catch (err) {
+        res.status(400).send(`Webhook Error: ${err.message}`);
+        return;
+      }
+      data = event.data.object;
+      eventType = event.type;
+    } else {
+      data = req.body.data.object;
+      eventType = req.body.type;
+    }
+
+    if (eventType === "checkout.session.completed") {
+      console.log(data);
+    }
+
+    // Return a 200 res to acknowledge receipt of the event
+    res.send();
+  }
+);
 
 module.exports = router;
