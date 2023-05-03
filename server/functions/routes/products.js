@@ -247,14 +247,58 @@ router.post(
 
     if (eventType === "checkout.session.completed") {
       stripe.customers.retrieve(data.customer).then((customer) => {
-        console.log("Details:", customer);
-        console.log("Data:", data);
+        // console.log("Details:", customer);
+        // console.log("Data:", data);
+        createOrder(customer, data, res);
       });
     }
 
     // Return a 200 res to acknowledge receipt of the event
-    res.send();
+    res.send().end();
   }
 );
+
+const createOrder = async (customer, intent, res) => {
+  console.log("insideO");
+  try {
+    const orderId = Date.now();
+    const data = {
+      intentId: intent.id,
+      orderId: orderId,
+      amount: intent.amount_total,
+      created: intent.created,
+      payment_method_types: intent.payment_method_types,
+      status: intent.payment_status,
+      customer: intent.customer_details,
+      shipping_details: intent.shipping_details,
+      userId: customer.metadata.user_id,
+      items: JSON.parse(customer.metadata.cart),
+      total: customer.metadata.total,
+      sts: "preparing",
+    };
+    await db.collection("orders").doc(`/${orderId}/`).set(data);
+    deleteCart(customer.metadata.user_id, JSON.parse(customer.metadata.cart));
+    console.log("********************");
+    return res.status(200).send({ success: true });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+const deleteCart = async (userId, items) => {
+  console.log("Inside delete");
+  console.log(userId);
+  console.log("********************");
+  items.map(async (data) => {
+    console.log("****inside****", userId, data.productId);
+    await db
+      .collection("cartItems")
+      .doc(`/${userId}/`)
+      .collection("items")
+      .doc(`/${data.productId}/`)
+      .delete()
+      .then(() => console.log("****success****"));
+  });
+};
 
 module.exports = router;
