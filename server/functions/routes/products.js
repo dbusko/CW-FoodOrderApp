@@ -169,19 +169,42 @@ router.post("/updateCart/:user_id", async (req, res) => {
 });
 
 router.post("/create-checkout-session", async (req, res) => {
-  const session = await stripe.checkout.sessions.create({
-    line_items: [
-      {
-        price_data: {
-          currency: "usd",
-          product_data: {
-            name: "T-shirt",
+  const line_items = req.body.data.cart.map((item) => {
+    return {
+      price_data: {
+        currency: "uah",
+        product_data: {
+          name: item.product_name,
+          images: [item.imageURL],
+          metadata: {
+            id: item.productId,
           },
-          unit_amount: 2000,
         },
-        quantity: 1,
+        unit_amount: item.product_price * 100,
+      },
+      quantity: item.quantity,
+    };
+  });
+  const session = await stripe.checkout.sessions.create({
+    payment_method_types: ["card"],
+    shipping_address_collection: { allowed_countries: ["UA"] },
+    shipping_options: [
+      {
+        shipping_rate_data: {
+          type: "fixed_amount",
+          fixed_amount: { amount: 0, currency: "uah" },
+          display_name: "Free Shipping",
+          delivery_estimate: {
+            minimum: { unit: "hour", value: 1 },
+            maximum: { unit: "hour", value: 2 },
+          },
+        },
       },
     ],
+    phone_number_collection: {
+      enabled: true,
+    },
+    line_items,
     mode: "payment",
     success_url: `${process.env.CLIENT_URL}/checkout-success`,
     cancel_url: `${process.env.CLIENT_URL}/`,
