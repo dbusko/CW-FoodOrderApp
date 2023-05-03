@@ -170,6 +170,13 @@ router.post("/updateCart/:user_id", async (req, res) => {
 });
 
 router.post("/create-checkout-session", async (req, res) => {
+  const customer = await stripe.customers.create({
+    metadata: {
+      user_id: req.body.data.user.user_id,
+      cart: JSON.stringify(req.body.data.cart),
+      total: req.body.data.total,
+    },
+  });
   const line_items = req.body.data.cart.map((item) => {
     return {
       price_data: {
@@ -206,6 +213,7 @@ router.post("/create-checkout-session", async (req, res) => {
       enabled: true,
     },
     line_items,
+    customer: customer.id,
     mode: "payment",
     success_url: `${process.env.CLIENT_URL}/checkout-success`,
     cancel_url: `${process.env.CLIENT_URL}/`,
@@ -238,7 +246,10 @@ router.post(
     }
 
     if (eventType === "checkout.session.completed") {
-      console.log(data);
+      stripe.customers.retrieve(data.customer).then((customer) => {
+        console.log("Details:", customer);
+        console.log("Data:", data);
+      });
     }
 
     // Return a 200 res to acknowledge receipt of the event
