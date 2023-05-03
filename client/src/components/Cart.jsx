@@ -4,9 +4,10 @@ import { buttonClick, slideIn, straggerFadeInOut } from "../animations";
 import { setCartOff } from "../context/actions/displayCartAction";
 import { BiChevronsRight, FcClearFilters } from "../assets/icons";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllCartItems, incrementItemQuantity } from "../api";
+import { baseURL, getAllCartItems, incrementItemQuantity } from "../api";
 import { setCartItems } from "../context/actions/cartAction";
 import { alertNULL, alertSuccess } from "../context/actions/alertActions";
+import axios from "axios";
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -21,6 +22,16 @@ const Cart = () => {
       });
     }
   }, [cart]);
+  const handleCheckOut = () => {
+    axios
+      .post(`${baseURL}/api/products/create-checkout-session`)
+      .then((res) => {
+        if (res.data.url) {
+          window.location.href = res.data.url;
+        }
+      })
+      .catch((err) => console.log(err));
+  };
   return (
     <motion.div
       {...slideIn}
@@ -56,6 +67,14 @@ const Cart = () => {
                   <span className="text-primary">$</span> {total}
                 </p>
               </div>
+
+              <motion.button
+                {...buttonClick}
+                className="bg-orange-400 w-[70%] px-4 py-3 text-xl text-headingColor font-semibold hover:bg-orange-500 drop-shadow-md rounded-2xl"
+                onClick={handleCheckOut}
+              >
+                Check Out
+              </motion.button>
             </div>
           </>
         ) : (
