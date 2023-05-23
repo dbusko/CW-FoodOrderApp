@@ -11,10 +11,9 @@ const SliderCard = ({ data, index }) => {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const addToCart = () => {
-    dispatch(alertSuccess("Added to cart"));
+    dispatch(alertSuccess("Продукт Додано!"));
     addNewItemToCart(user?.user_id, data).then((res) => {
       getAllCartItems(user?.user_id).then((items) => {
-        
         dispatch(setCartItems(items));
       });
       setInterval(() => {
@@ -30,7 +29,7 @@ const SliderCard = ({ data, index }) => {
           {data.product_name}
         </p>
         <p className="text-lg font-semibold text-red-500 flex items-center justify-center gap-1">
-          $ {parseFloat(data.product_price).toFixed(2)}
+          ₴ {parseFloat(data.product_price).toFixed(2)}
         </p>
         <motion.div
           {...buttonClick}

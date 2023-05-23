@@ -41,7 +41,7 @@ const Cart = () => {
   return (
     <motion.div
       {...slideIn}
-      className="fixed z-50 top-0 right-0 w-300 md:w-508 bg-lightOverlay backdrop-blur-md shadow-md h-screen"
+      className="fixed overflow-y-scroll z-50 top-0 right-0 w-300 md:w-508 bg-lightOverlay backdrop-blur-md shadow-md h-screen"
     >
       <div className="w-full flex items-center justify-between py-4 pb-12 px-6">
         <motion.i
@@ -51,7 +51,7 @@ const Cart = () => {
         >
           <BiChevronsRight className="text-[50px] text-textColor" />
         </motion.i>
-        <p className="text-2xl text-headingColor font-semibold">Your Cart</p>
+        <p className="text-2xl text-headingColor font-semibold">Ваш Кошик</p>
         <motion.i {...buttonClick} className="cursor-pointer">
           <FcClearFilters className="text-[30px] text-textColor" />
         </motion.i>
@@ -68,9 +68,9 @@ const Cart = () => {
             </div>
             <div className="bg-zinc-800 rounded-t-[60px] w-full h-[35%] flex flex-col items-center justify-center px-4 py-6 gap-24">
               <div className="w-full flex items-center justify-evenly">
-                <p className="text-3xl text-zinc-500 font-semibold">Total</p>
+                <p className="text-3xl text-zinc-500 font-semibold">Всього</p>
                 <p className="text-3xl text-orange-500 font-semibold flex items-center justify-center gap-1">
-                  <span className="text-primary">$</span> {total}
+                  <span className="text-primary">₴</span> {total}
                 </p>
               </div>
 
@@ -79,13 +79,17 @@ const Cart = () => {
                 className="bg-orange-400 w-[70%] px-4 py-3 text-xl text-headingColor font-semibold hover:bg-orange-500 drop-shadow-md rounded-2xl"
                 onClick={handleCheckOut}
               >
-                Check Out
+                Замовити
               </motion.button>
             </div>
           </>
         ) : (
           <>
-            <h1 className="text-3xl text-primary font-bold">Empty Cart</h1>
+            <div className="w-full flex items-center justify-center">
+              <h1 className="text-3xl text-primary font-bold">
+                Кошик порожній
+              </h1>
+            </div>
           </>
         )}
       </div>
@@ -102,7 +106,7 @@ export const CartItemCard = ({ index, data }) => {
     setItemTotal(data.product_price * data.quantity);
   }, [itemTotal, cart]);
   const decrementCart = (productId) => {
-    dispatch(alertSuccess("Updated"));
+    dispatch(alertSuccess("Оновлено!"));
     incrementItemQuantity(user?.user_id, productId, "decrement").then(
       (data) => {
         getAllCartItems(user?.user_id).then((items) => {
@@ -113,7 +117,7 @@ export const CartItemCard = ({ index, data }) => {
     );
   };
   const incrementCart = (productId) => {
-    dispatch(alertSuccess("Updated"));
+    dispatch(alertSuccess("Оновлено!"));
     incrementItemQuantity(user?.user_id, productId, "increment").then(
       (data) => {
         getAllCartItems(user?.user_id).then((items) => {

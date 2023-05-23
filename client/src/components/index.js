@@ -21,3 +21,6 @@ export { default as Cart } from "./Cart";
 export { default as SuccessPayments } from "./SuccessPayments";
 export { default as OrdersInfo } from "./OrdersInfo";
 export { default as UserOrders } from "./UserOrders";
+export { default as About } from "./About";
+export { default as Services } from "./Services";
+export { default as Footer } from "./Footer";

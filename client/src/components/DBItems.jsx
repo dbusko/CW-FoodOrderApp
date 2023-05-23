@@ -15,7 +15,7 @@ const DBItems = () => {
       <DataTable
         columns={[
           {
-            title: "Image",
+            title: "Зображення",
             field: "imageURL",
             render: (rowData) => (
               <img
@@ -25,42 +25,44 @@ const DBItems = () => {
             ),
           },
           {
-            title: "Name",
+            title: "Назва",
             field: "product_name",
           },
           {
-            title: "Category",
+            title: "Категорія",
             field: "product_category",
           },
           {
-            title: "Price",
+            title: "Ціна",
             field: "product_price",
             render: (rowData) => (
               <p className="text-xl font-semibold text-textColor flex items-center justify-center">
-                <HiCurrencyRupee className="text-red-400" />{" "}
-                {/* <span className="text-red-400">$</span> */}
+                {/* <HiCurrencyRupee className="text-red-400" />{" "} */}
+                <span className="text-red-400">₴</span>
                 {parseFloat(rowData.product_price).toFixed(2)}
               </p>
             ),
           },
         ]}
         data={products}
-        title="List of Products"
+        title="Асортимент Продукції"
         actions={[
           {
             icon: "edit",
-            tooltip: "Edit Data",
+            tooltip: "Редагувати",
             onClick: (event, rowData) => {
-              alert("You want to edit " + rowData.productId);
+              alert("Ви збираєтесь редагувати " + rowData.productId);
             },
           },
           {
             icon: "delete",
-            tooltip: "Delete Data",
+            tooltip: "Видалити",
             onClick: (event, rowData) => {
-              if (window.confirm("Are you sure?")) {
+              if (
+                window.confirm("Ви впевнені, що хочите видалити цей продукт?")
+              ) {
                 deleteProduct(rowData.productId).then((res) => {
-                  dispatch(alertSuccess("Product Removed"));
+                  dispatch(alertSuccess("Продукт Видалено!"));
                   setInterval(() => {
                     dispatch(alertNULL());
                   }, 3000);

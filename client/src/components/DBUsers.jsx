@@ -20,7 +20,7 @@ const DBUsers = () => {
       <DataTable
         columns={[
           {
-            title: "Image",
+            title: "Аватар",
             field: "photoURL",
             render: (rowData) => (
               <img
@@ -30,7 +30,7 @@ const DBUsers = () => {
             ),
           },
           {
-            title: "Name",
+            title: "Ім'я",
             field: "displayName",
           },
           {
@@ -38,7 +38,7 @@ const DBUsers = () => {
             field: "email",
           },
           {
-            title: "Verified",
+            title: "Статус",
             field: "emailVerified",
             render: (rowData) => (
               <p
@@ -46,13 +46,13 @@ const DBUsers = () => {
                   rowData.emailVerified ? "bg-emerald-500" : "bg-red-500"
                 }`}
               >
-                {rowData.emailVerified ? "Verified" : "Not Verified"}
+                {rowData.emailVerified ? "Підтверджений" : "Не Підтверджений"}
               </p>
             ),
           },
         ]}
         //data={allUsers}
-        title="List of Users"
+        title="Перелік Користувачів"
         // actions={[
         //   {
         //     icon: "edit",

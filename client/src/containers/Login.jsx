@@ -50,7 +50,7 @@ const Login = () => {
   };
   const signUpWithEmailPass = async () => {
     if (userEmail === "" || password === "" || confirm_password === "") {
-      dispatch(alertInfo("Required fields should not be empty"));
+      dispatch(alertInfo("Поля не повинні бути порожніми!"));
     } else {
       if (password === confirm_password) {
         setUserEmail("");
@@ -73,7 +73,7 @@ const Login = () => {
           });
         });
       } else {
-        dispatch(alertWarning("Password doesn't match"));
+        dispatch(alertWarning("Паролі не співпадають!"));
       }
     }
   };
@@ -94,7 +94,7 @@ const Login = () => {
         }
       );
     } else {
-      dispatch(alertWarning("Password doesn't match"));
+      dispatch(alertWarning("Email/Пароль не коректний!"));
     }
   };
   return (
@@ -107,19 +107,23 @@ const Login = () => {
       />
       {/* mainGI */}
       <div className="flex flex-col items-center bg-lightOverlay w-[80%] md:w-508 h-full z-10 backdrop-blur-md p-4 px-4 py-12 gap-6">
-        <div className="flex items-center justify-start gap-4 w-full">
+        <div className="flex items-center justify-center gap-2 w-full">
           <img src={Logo} className="w-8" alt="" />
-          <p className="text-headingColor font-semibold text-3xl">City</p>
+          <p className="text-headingColor text-2xl font-bold italic">
+            <span className="text-orange-500 italic">fast</span>Town
+          </p>
         </div>
 
-        <p className="text-3xl font-semibold text-headingColor">Welcome Back</p>
+        <p className="text-3xl font-semibold text-headingColor">
+          Ласкаво Просимо
+        </p>
         <p className="text-xl text-textColor -mt-6">
-          {isSignUp ? "Sign-Up" : "Sign-In"} with following
+          {isSignUp ? "Створення облікового запису" : "Вхід в обліковий запис"}
         </p>
 
         <div className="w-full flex flex-col items-center justify-center gap-6 px-4 md:px-12 py-4">
           <LoginInput
-            placeHolder={"Email Here"}
+            placeHolder={"Email"}
             icon={<FaEnvelope className="text-xl text-textColor" />}
             inputState={userEmail}
             inputStateFunc={setUserEmail}
@@ -128,7 +132,7 @@ const Login = () => {
           />
 
           <LoginInput
-            placeHolder={"Password Here"}
+            placeHolder={"Пароль"}
             icon={<FaLock className="text-xl text-textColor" />}
             inputState={password}
             inputStateFunc={setPassword}
@@ -138,7 +142,7 @@ const Login = () => {
 
           {isSignUp && (
             <LoginInput
-              placeHolder={"Confirm Password Here"}
+              placeHolder={"Підтвердіть Пароль"}
               icon={<FaLock className="text-xl text-textColor" />}
               inputState={confirm_password}
               inputStateFunc={setConfirm_password}
@@ -149,24 +153,24 @@ const Login = () => {
 
           {!isSignUp ? (
             <p>
-              Doesn't have an account:{" "}
+              Досі не зареєстровані:{" "}
               <motion.button
                 {...buttonClick}
-                className="text-red-400 underline cursor-pointer bg-transparent"
+                className="text-red-600 underline cursor-pointer bg-transparent"
                 onClick={() => setIsSignUp(true)}
               >
-                Create one
+                Перейдіть
               </motion.button>
             </p>
           ) : (
             <p>
-              Already have an account:{" "}
+              Вже зареєстровані:{" "}
               <motion.button
                 {...buttonClick}
                 className="text-red-400 underline cursor-pointer bg-transparent"
                 onClick={() => setIsSignUp(false)}
               >
-                Sign-in here
+                Перейдіть
               </motion.button>
             </p>
           )}
@@ -177,7 +181,7 @@ const Login = () => {
               className="w-full px-4 py-2 rounded-md bg-red-400 cursor-pointer text-white text-xl capitalize hover:bg-red-500 transition-all duration-150"
               onClick={signUpWithEmailPass}
             >
-              Sign-Up
+              Зареєструватися
             </motion.button>
           ) : (
             <motion.button
@@ -185,14 +189,14 @@ const Login = () => {
               className="w-full px-4 py-2 rounded-md bg-red-400 cursor-pointer text-white text-xl capitalize hover:bg-red-500 transition-all duration-150"
               onClick={signInWithEmailPass}
             >
-              Sign-In
+              Увійти
             </motion.button>
           )}
         </div>
 
         <div className="flex items-center justify-between gap-16">
           <div className="w-24 h-[1px] rounded-md bg-white"></div>
-          <p className="text-white">or</p>
+          <p className="text-white">або</p>
           <div className="w-24 h-[1px] rounded-md bg-white"></div>
         </div>
 
@@ -203,7 +207,7 @@ const Login = () => {
         >
           <FcGoogle className="text-3xl" />
           <p className="capitalize text-base text-headingColor">
-            Sign-In with Google
+            Увійти через Google
           </p>
         </motion.div>
       </div>

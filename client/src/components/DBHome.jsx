@@ -7,17 +7,18 @@ import { CChart } from "@coreui/react-chartjs";
 const DBHome = () => {
   const products = useSelector((state) => state.products);
   const dispatch = useDispatch();
-  const drinks = products?.filter((item) => item.product_category === "drinks");
+  const drinks = products?.filter((item) => item.product_category === "напої");
   const deserts = products?.filter(
-    (item) => item.product_category === "deserts"
+    (item) => item.product_category === "десерти"
   );
-  const fruits = products?.filter((item) => item.product_category === "fruits");
-  const rice = products?.filter((item) => item.product_category === "rice");
-  const curry = products?.filter((item) => item.product_category === "curry");
-  const chinese = products?.filter(
-    (item) => item.product_category === "chinese"
+  const fruits = products?.filter((item) => item.product_category === "фрукти");
+  const meat = products?.filter((item) => item.product_category === "м'ясо");
+  const fastFood = products?.filter((item) => item.product_category === "фаст-фуд");
+  const soups = products?.filter(
+    (item) => item.product_category === "супи"
   );
-  const bread = products?.filter((item) => item.product_category === "bread");
+  const bread = products?.filter((item) => item.product_category === "випічка");
+  const fish = products?.filter((item) => item.product_category === "риба");
   useEffect(() => {
     if (!products) {
       getAllProducts().then((data) => {
@@ -34,26 +35,28 @@ const DBHome = () => {
               type="bar"
               data={{
                 labels: [
-                  "Drinks",
-                  "Deserts",
-                  "Fruits",
-                  "Rice",
-                  "Curry",
-                  "Chinese",
-                  "Bread",
+                  "Напої",
+                  "Десерти",
+                  "Фрукти",
+                  "М'ясо",
+                  "Фаст-фуд",
+                  "Супи",
+                  "Випічка",
+                  "Риба",
                 ],
                 datasets: [
                   {
-                    label: "Category wise Count",
+                    label: "Діаграма Меню",
                     backgroundColor: "#f87979",
                     data: [
                       drinks?.length,
                       deserts?.length,
                       fruits?.length,
-                      rice?.length,
-                      curry?.length,
-                      chinese?.length,
+                      meat?.length,
+                      fastFood?.length,
+                      soups?.length,
                       bread?.length,
+                      fish?.length,
                     ],
                   },
                 ],
@@ -68,11 +71,11 @@ const DBHome = () => {
               type="doughnut"
               data={{
                 labels: [
-                  "Orders",
-                  "Delievered",
-                  "Cancelled",
-                  "Paid",
-                  "Not Paid",
+                  "Замовлено",
+                  "Доставлено",
+                  "Скасовано",
+                  "Оплачено",
+                  "Не Оплачено",
                 ],
                 datasets: [
                   {

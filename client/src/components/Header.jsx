@@ -27,45 +27,49 @@ const Header = () => {
       })
       .catch((err) => console.log(err));
   };
+  function onClickHeaderItem(sectionId) {
+    //document.getElementById(sectionId).scrollIntoView({ behavior: "smooth", block: "end", inline: "end" });
+    const yOffset = -160;
+    const element = document.getElementById(sectionId);
+    const y =
+      element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+    // window.location.href = "#aboutUs";
+    window.scrollTo({ top: y, behavior: "smooth" });
+  }
   return (
     <header className="fixed backdrop-blur-md z-50 inset-x-0 top-0 flex items-center justify-between px-12 md:px-20 py-6">
       <NavLink to={"/"} className="flex items-center justify-center gap-4">
-        <img src={Logo} className="w-12" alt="" />
-        <p className="font-semibold text-xl">City</p>
+        <img src={Logo} className="w-8 object-cover" alt="logo" />
+        <p className="text-headingColor text-2xl font-bold italic">
+          <span className="text-orange-500 italic">fast</span>Town
+        </p>
       </NavLink>
       <nav className="flex items-center justify-center gap-8">
         <ul className="hidden md:flex items-center justify-center gap-16">
           <NavLink
-            className={({ isActive }) =>
-              isActive ? isActiveStyles : isNotActiveStyles
-            }
+            className="text-xl hover:text-2xl text-textColor font-semibold hover:text-red-700 px-4 py-2 duration-100 transition-all ease-in-out "
             to={"/"}
+            onClick={() => onClickHeaderItem("home")}
           >
-            Home
+            Головна
           </NavLink>
           <NavLink
-            className={({ isActive }) =>
-              isActive ? isActiveStyles : isNotActiveStyles
-            }
-            to={"/menu"}
+            className="text-xl hover:text-2xl text-textColor font-semibold hover:text-red-700 px-4 py-2 duration-100 transition-all ease-in-out "
+            onClick={() => onClickHeaderItem("menu")}
           >
-            Menu
+            Меню
           </NavLink>
           <NavLink
-            className={({ isActive }) =>
-              isActive ? isActiveStyles : isNotActiveStyles
-            }
-            to={"/services"}
+            className="text-xl hover:text-2xl text-textColor font-semibold hover:text-red-700 px-4 py-2 duration-100 transition-all ease-in-out "
+            onClick={() => onClickHeaderItem("aboutUs")}
           >
-            Services
+            Про Нас
           </NavLink>
           <NavLink
-            className={({ isActive }) =>
-              isActive ? isActiveStyles : isNotActiveStyles
-            }
-            to={"/aboutus"}
+            className="text-xl hover:text-2xl text-textColor font-semibold hover:text-red-700 px-4 py-2 duration-100 transition-all ease-in-out "
+            onClick={() => onClickHeaderItem("services")}
           >
-            About Us
+            Послуги
           </NavLink>
         </ul>
         <motion.div
@@ -100,27 +104,27 @@ const Header = () => {
                 <motion.div
                   {...slideTop}
                   onMouseLeave={() => setIsMenu(false)}
-                  className="px-6 py-4 w-48 bg-lightOverlay backdrop-blur-md rounded-md shadow-md absolute top-12 right-0 flex flex-col gap-4"
+                  className="px-6 py-4 w-48 bg-white backdrop-blur-md rounded-md shadow-md absolute top-12 right-0 flex flex-col gap-4"
                 >
                   {user?.user_id === process.env.REACT_APP_ADMIN_USER_ID && (
                     <Link
                       className="hover:text-red-500 text-xl text-textColor"
                       to={"/dashboard/home"}
                     >
-                      Dashboard
+                      Інформ. Панель
                     </Link>
                   )}
                   <Link
                     className="hover:text-red-500 text-xl text-textColor"
                     to={"/profile"}
                   >
-                    My Profile
+                    Профіль
                   </Link>
                   <Link
                     className="hover:text-red-500 text-xl text-textColor"
                     to={"/user-orders"}
                   >
-                    Orders
+                    Замовлення
                   </Link>
                   <hr />
                   <motion.div
@@ -130,7 +134,7 @@ const Header = () => {
                   >
                     <MdLogout className="text-2xl text-textColor group-hover:text-headingColor" />
                     <p className="text-textColor text-xl group-hover:text-headingColor">
-                      Sign-Out
+                      Вийти
                     </p>
                   </motion.div>
                 </motion.div>

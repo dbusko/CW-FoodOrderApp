@@ -31,9 +31,9 @@ const DBHeader = () => {
   return (
     <div className="w-full flex items-center justify-between gap-3">
       <p className="text-2xl text-headingColor">
-        Welcome to City
+        Ласкаво просимо...
         {user?.name && (
-          <span className="block text-base text-gray-500">{`Hello ${user?.name}...!`}</span>
+          <span className="block text-base text-gray-500">{`Привіт, ${user?.name}!`}</span>
         )}
       </p>
       <div className="flex items-center justify-center gap-4">
@@ -42,7 +42,7 @@ const DBHeader = () => {
           <input
             className="border-none outline-none bg-transparent w-32 text-base font-semibold text-textColor"
             type="text"
-            placeholder="Search Here..."
+            placeholder="Шукати..."
           />
           <BsToggles2 className="text-gray-400 text-2xl" />
         </div>

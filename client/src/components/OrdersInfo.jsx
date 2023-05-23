@@ -20,10 +20,10 @@ const OrdersInfo = ({ index, data, admin }) => {
       className="w-full flex flex-col items-start justify-start px-3 py-2 border relative border-gray-300 bg-lightOverlay drop-shadow-md rounded-md gap-4"
     >
       <div className="w-full flex items-center justify-between">
-        <h1 className="font-semibold text-headingColor text-xl">Orders</h1>
+        <h1 className="font-semibold text-headingColor text-xl">Замовлення</h1>
         <div className="flex items-center gap-4">
           <p className="flex items-center gap-1 text-textColor">
-            Total : <span className="text-red-500 text-lg">$</span>{" "}
+            Всього : <span className="text-red-500 text-lg">₴</span>{" "}
             <span className="text-headingColor font-bold">{data?.total}</span>
           </p>
           <p className="px-2 py-[2px] text-sm text-headingColor font-semibold capitalize rounded-md bg-emerald-400 drop-shadow-md">
@@ -40,27 +40,29 @@ const OrdersInfo = ({ index, data, admin }) => {
           </p>
           {admin && (
             <div className="flex items-center justify-center gap-2">
-              <p className="text-lg font-semibold text-headingColor">Mark As</p>
+              <p className="text-lg font-semibold text-headingColor">
+                Позначити:{" "}
+              </p>
               <motion.p
                 {...buttonClick}
                 onClick={() => handleClick(data.orderId, "preparing")}
                 className={`text-orange-500 text-base font-semibold capitalize border border-gray-300 px-2 py-[2px] rounded-md cursor-pointer`}
               >
-                Preparing
+                Готується
               </motion.p>
               <motion.p
                 {...buttonClick}
                 onClick={() => handleClick(data.orderId, "cancelled")}
                 className={`text-red-500 text-base font-semibold capitalize border border-gray-300 px-2 py-[2px] rounded-md cursor-pointer`}
               >
-                Cancelled
+                Скасовано
               </motion.p>
               <motion.p
                 {...buttonClick}
                 onClick={() => handleClick(data.orderId, "delievered")}
                 className={`text-emerald-500 text-base font-semibold capitalize border border-gray-300 px-2 py-[2px] rounded-md cursor-pointer`}
               >
-                Delievered
+                Доставлено
               </motion.p>
             </div>
           )}
@@ -89,7 +91,7 @@ const OrdersInfo = ({ index, data, admin }) => {
                       К-сть: {item.quantity}
                     </p>
                     <p className="flex items-center gap-1 text-textColor">
-                      <span className="text-base text-red-500">$</span>
+                      <span className="text-base text-red-500">₴</span>
                       {parseFloat(item.product_price).toFixed(2)}
                     </p>
                   </div>

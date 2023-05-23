@@ -1,3 +1,11 @@
+import {
+  FastDelivery,
+  OnlineOrder,
+  SaveMoney,
+  Promotions,
+  Support,
+} from "../assets";
+
 export const isActiveStyles =
   "text-2xl text-red-700 font-semibold hover:text-red-700 px-4 py-2 duration-100 transition-all ease-in-out";
 
@@ -5,13 +13,14 @@ export const isNotActiveStyles =
   "text-xl text-textColor hover:text-red-700 px-4 py-2 duration-100 transition-all ease-in-out";
 
 export const statuses = [
-  { id: 1, title: "Drinks", category: "drinks" },
-  { id: 2, title: "Deserts", category: "deserts" },
-  { id: 3, title: "Fruits", category: "fruits" },
-  { id: 4, title: "Rice", category: "rice" },
-  { id: 5, title: "Curry", category: "curry" },
-  { id: 6, title: "Chinese", category: "chinese" },
-  { id: 7, title: "Bread", category: "bread" },
+  { id: 1, title: "Напої", category: "напої" },
+  { id: 2, title: "Десерти", category: "десерти" },
+  { id: 3, title: "Фрукти", category: "фрукти" },
+  { id: 4, title: "М'ясо", category: "м'ясо" },
+  { id: 5, title: "Фаст-фуд", category: "фаст-фуд" },
+  { id: 6, title: "Супи", category: "супи" },
+  { id: 7, title: "Випічка", category: "випічка" },
+  { id: 8, title: "Риба", category: "риба" },
 ];
 
 export const foodInfo = [
@@ -64,4 +73,12 @@ export const foodInfo = [
     product_category: "Морепродукти",
     product_price: "120.00",
   },
+];
+
+export const serviceData = [
+  { id: 1, name: "Миттєва Доставка", imageSrc: FastDelivery },
+  { id: 2, name: "Онлайн Замовлення", imageSrc: OnlineOrder },
+  { id: 3, name: "Економія", imageSrc: SaveMoney },
+  { id: 4, name: "Акції", imageSrc: Promotions },
+  { id: 5, name: "Підтримка 24/7", imageSrc: Support },
 ];

@@ -38,7 +38,7 @@ const DBNewItem = () => {
         setProgress((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
       },
       (error) => {
-        dispatch(alertDanger(`Error : ${error}`));
+        dispatch(alertDanger(`Помилка : ${error}`));
         setTimeout(() => {
           dispatch(alertNULL());
         }, 3000);
@@ -48,7 +48,7 @@ const DBNewItem = () => {
           setImageDownloadURL(downloadURL);
           setIsLoading(false);
           setProgress(null);
-          dispatch(alertSuccess("Image Uploaded to the cloud"));
+          dispatch(alertSuccess("Зображення відвантажено!"));
           setTimeout(() => {
             dispatch(alertNULL());
           }, 3000);
@@ -62,7 +62,7 @@ const DBNewItem = () => {
     deleteObject(deleteRef).then(() => {
       setImageDownloadURL(null);
       setIsLoading(false);
-      dispatch(alertSuccess("Image Removed from the cloud"));
+      dispatch(alertSuccess("Зображення усунуто!"));
       setTimeout(() => {
         dispatch(alertNULL());
       }, 3000);
@@ -77,7 +77,7 @@ const DBNewItem = () => {
     };
     addNewProduct(data).then((res) => {
       console.log(res);
-      dispatch(alertSuccess("New Item added"));
+      dispatch(alertSuccess("Новий Продукт Додано"));
       setTimeout(() => {
         dispatch(alertNULL());
       }, 3000);
@@ -95,7 +95,7 @@ const DBNewItem = () => {
       <div className="border border-gray-300 rounded-md p-4 w-full flex flex-col items-center justify-center gap-4">
         <InputValueField
           type="text"
-          placeHolder={"Item name here"}
+          placeHolder={"Назва продукту"}
           stateFunc={setItemName}
           stateValue={itemName}
         />
@@ -117,7 +117,7 @@ const DBNewItem = () => {
         </div>
         <InputValueField
           type="number"
-          placeHolder={"Item price here"}
+          placeHolder={"Ціна продукту"}
           stateFunc={setPrice}
           stateValue={price}
         />
@@ -129,7 +129,7 @@ const DBNewItem = () => {
                 <div className="w-full flex flex-col items-center justify-center gap-2">
                   <div className="flex justify-between w-full">
                     <span className="text-base font-medium text-textColor">
-                      Progress
+                      Прогрес
                     </span>
                     <span className="text-sm font-medium text-textColor">
                       {Math.round(progress > 0) && (
@@ -157,7 +157,7 @@ const DBNewItem = () => {
                           <FaCloudUploadAlt className="-rotate-0" />
                         </p>
                         <p className="text-lg text-textColor">
-                          Click to upload an image
+                          Натисніть, щоб завантажити фото
                         </p>
                       </div>
                     </div>
@@ -197,7 +197,7 @@ const DBNewItem = () => {
           {...buttonClick}
           className="w-9/12 py-2 rounded-md bg-red-400 text-primary hover:bg-red-500 cursor-pointer"
         >
-          Save
+          Зберегти
         </motion.button>
       </div>
     </div>

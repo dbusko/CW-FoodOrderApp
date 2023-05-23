@@ -1,5 +1,14 @@
 import React, { useEffect } from "react";
-import { Cart, Filter, Header, Home, HomeSlider } from "../components";
+import {
+  About,
+  Cart,
+  Filter,
+  Footer,
+  Header,
+  Home,
+  HomeSlider,
+  Services,
+} from "../components";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllProducts } from "../api";
 import { setAllProducts } from "../context/actions/productActions";
@@ -16,14 +25,16 @@ const Main = () => {
     }
   }, []);
   return (
-    <main className="w-screen min-h-screen flex items-center justify-start flex-col bg-primary">
+    <main className="w-screen overflow-hidden min-h-screen flex items-center justify-start flex-col bg-primary">
       <Header />
-      <div className="w-full flex flex-col items-start justify-center mt-40 px-6 md:px-24 2xl:px-96 gap-12 pb-24">
+      <div className="w-screen overflow-hidden h-full flex flex-col items-start justify-center mt-40 px-6 md:px-24 2xl:px-96 gap-12 pb-8">
         <Home />
         <HomeSlider />
         <Filter />
+        <About />
+        <Services />
+        <Footer />
       </div>
-
       {isCart && <Cart />}
     </main>
   );

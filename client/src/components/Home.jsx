@@ -6,10 +6,15 @@ import { foodInfo } from "../utils/styles";
 
 const Home = () => {
   return (
-    <motion.div className="w-full grid grid-cols-1 md:grid-cols-2 gap-4">
+    <motion.div
+      className="w-full grid grid-cols-1 md:grid-cols-2 gap-4"
+      id="home"
+    >
       <div className="flex flex-col justify-start items-start gap-6">
         <div className="px-4 py-1 flex items-center justify-center gap-2 bg-orange-100 rounded-full">
-          <p className="text-lg font-semibold text-orange-500">Free Delivery</p>
+          <p className="text-lg font-semibold text-orange-500">
+            Швидка Доставка
+          </p>
           <div className="w-10 h-10 flex items-center justify-center rounded-full bg-primary shadow-md">
             <img
               src={Delivery}
@@ -18,9 +23,11 @@ const Home = () => {
             />
           </div>
         </div>
-        <p className="text-[40px] text-headingColor md:text-[72px] font-sans font-extrabold tracking-wider">
-          The Fastest Delivery in{" "}
-          <span className="text-orange-600">Your City</span>
+        <p className="text-[2.5rem] lg:text-[5rem] lg:leading-[100px] font-bold tracking-wide text-headingColor">
+          Найшвидші у Вашому{" "}
+          <span className="text-orange-600 text-[3rem] lg:text-[5.5rem]">
+            Містечку
+          </span>
         </p>
         <p className="text-textColor text-lg">
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam vitae
@@ -32,7 +39,7 @@ const Home = () => {
           {...buttonClick}
           className="bg-gradient-to-bl from-orange-400 to-orange-600 px-4 py-2 rounded-xl text-black text-base font-semibold"
         >
-          Order Now
+          Перейти
         </motion.button>
       </div>
       <div className="py-2 flex-1 flex items-center justify-end relative">
@@ -52,7 +59,7 @@ const Home = () => {
                 <img
                   src={data.imageURL}
                   alt=""
-                  className="w-12 h-12 md:w-32 md:h-32 md:-mt-16 object-contain"
+                  className="w-12 h-12 md:w-32 md:h-32 md:-mt-10 object-contain"
                 />
                 <p className="text-sm lg:text-xl font-semibold text-textColor">
                   {data.product_name.slice(0, 14)}
@@ -61,7 +68,7 @@ const Home = () => {
                   {data.product_category}
                 </p>
                 <p className="text-sm font-semibold text-headingColor">
-                  <span className="text-xs text-red-600">$</span>{" "}
+                  <span className="text-xs text-red-600">₴</span>{" "}
                   {data.product_price}
                 </p>
               </motion.div>
